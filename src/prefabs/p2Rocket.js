@@ -1,7 +1,7 @@
-//rocket class
+//rocket class for player 2 
 
 
-class Rocket extends Phaser.GameObjects.Sprite{
+class p2Rocket extends Phaser.GameObjects.Sprite{
     constructor(scene,x,y,texture,frame){
         super(scene,x,y,texture,frame)
 
@@ -11,9 +11,8 @@ class Rocket extends Phaser.GameObjects.Sprite{
         this.moveSpeed=2
         this.sfxShot = scene.sound.add('sfx-shot')
     }
-
-    //rocket movement
-update(currentPlayer) {
+   //rocket movement
+   update(currentPlayer) {
     if (currentPlayer === 1 && this === this.scene.p1Rocket) {
         // Player 1 control logic
         this.controlRocket();
