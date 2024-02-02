@@ -13,17 +13,18 @@ class Rocket extends Phaser.GameObjects.Sprite{
     }
 
     //rocket movement
-update(currentPlayer) {
-    if (currentPlayer === 1 && this === this.scene.p1Rocket) {
-        // Player 1 control logic
-        this.controlRocket();
-    } else if (currentPlayer === 2 && this === this.scene.p2Rocket) {
-        // Player 2 control logic
-        this.controlRocket();
+    update(currentPlayer, keyLEFT, keyRIGHT, keyFIRE) {
+        if (currentPlayer === 1 && this === this.scene.p1Rocket) {
+            // Player 1 control logic
+            this.controlRocket(keyLEFT, keyRIGHT, keyFIRE);
+        } else if (currentPlayer === 2 && this === this.scene.p2Rocket) {
+            // Player 2 control logic
+            this.controlRocket(keyLEFT, keyRIGHT, keyFIRE);
+        }
     }
-}
+    
 
-controlRocket() {
+controlRocket(keyLEFT,keyRIGHT,keyFIRE) {
     if (!this.isFiring) {
         if (keyLEFT.isDown && this.x >= borderUISize + this.width) {
             this.x -= this.moveSpeed;
