@@ -20,9 +20,10 @@ DONE :
 3 point task to do :
 
 TO DO : 
--Create 4 new explosion sound effects and randomize which one plays on impact (3)
 -Create a new title screen (e.g., new artwork, typography, layout) (3)
 
 DONE : 
 
 -Display the time remaining (in seconds) on the screen (3)
+-Create 4 new explosion sound effects and randomize which one plays on impact (3)
+
