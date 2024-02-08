@@ -8,6 +8,7 @@ class Menu extends Phaser.Scene{
       this.load.image('rocket', './assets/rocket.png'),
       this.load.image('spaceship','./assets/spaceship.png')
       this.load.image('starfield', './assets/starfield.png')
+      this.load.image('menuBackround','./assets/newSpaceMenu.png')
       this.load.spritesheet('explosion', './assets/explosion.png', {
           frameWidth: 64,
           frameHeight: 32,
@@ -15,9 +16,28 @@ class Menu extends Phaser.Scene{
           endFrame: 9
       })
       // load audio
+      this.load.audio('menuMusic','./assets/menuMusic.mp3')
       this.load.audio('sfx-select', './assets/sfx-select.wav')
-      this.load.audio('sfx-explosion', './assets/sfx-explosion.wav')
+      this.load.audio('sfx-explosion01', './assets/sfx-explosion.wav')
+      this.load.audio('sfx-explosion02', './assets/sfx-explo-1.wav')
+      this.load.audio('sfx-explosion03', './assets/sfx-explo-2.wav')
+      this.load.audio('sfx-explosion04', './assets/sfx-explo-3.wav')
+      this.load.audio('sfx-explosion05', './assets/sfx-explo-4.wav')
       this.load.audio('sfx-shot', './assets/sfx-shot.wav')
+
+      let loadingBar = this.add.graphics({
+        fillStyle: {
+          color: 0xffffff
+        }
+      })
+
+      //for(let i=0;i<100;i++)
+
+      this.load.on("progress",(percent)=>{
+        loadingBar.fillRect(0,this.game.renderer.height/2,this.game.renderer.width*percent,50);
+        console.log(percent);
+      })
+
   }
 
   create(){
@@ -31,27 +51,12 @@ class Menu extends Phaser.Scene{
 
       //this.add.text(20,20, "Rocket Patrol Menu")
       //this.scene.start("playScene")
+      this.sound.play("menuMusic",{volume: 0.5},{
+        loop:true
+      })
 
+      this.add.image(this.game.renderer.width/2,this.game.renderer.height/2,"menuBackround").setDepth(1)
                       // display menu
-      let menuConfig = {
-          fontFamily: 'Courier',
-          fontSize: '28px',
-          backgroundColor: '#F3B141',
-          color: '#843605',
-          align: 'right',
-          padding: {
-          top: 5,
-          bottom: 5,
-          },
-          fixedWidth: 0
-      }
-
-      this.add.text(game.config.width/2, game.config.height/2-borderUISize-borderPadding,'Rocket Patrol',menuConfig).setOrigin(0.5)
-      this.add.text(game.config.width/2, game.config.height/2,"Use <--> arrows to move & (F) to fire",menuConfig).setOrigin(0.5)
-      menuConfig.backgroundColor='#00FF00'
-      menuConfig.color='#000'
-      this.add.text(game.config.width/2, game.config.height/2+borderUISize+borderPadding, 'Press <- for Novice or -> for Expert', menuConfig).setOrigin(0.5)
-
               // define keys
       this.keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT)
       this.keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT)

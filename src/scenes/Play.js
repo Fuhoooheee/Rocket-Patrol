@@ -7,14 +7,12 @@ class Play extends Phaser.Scene {
     this.timer = 0;
     //this.p2Timer = 0;
     this.isP1Turn = true;
-    this.gameOver2 = false; // probably not useable
     this.showGameOverP1Text = false;
     this.showPressJToStartP2Text = false;
   }
 
   init(data) {
     this.timer = data.gameTimer;
-    //this.p2Timer = data.gameTimer;
   }
 
   create() {
@@ -125,12 +123,6 @@ class Play extends Phaser.Scene {
       .setOrigin(0.5);
     this.pressJToStartP2Text.setVisible(false);
 
-    // Timer update
-    // needs potential fix ???
-    /*  if (!this.gameOver) {
-            this.updateTimer();
-        }*/
-
     //p1 & p2 rockets
     //add rocket to p1
     this.rocket = new Rocket(
@@ -139,16 +131,7 @@ class Play extends Phaser.Scene {
       game.config.height - borderUISize - borderPadding,
       "rocket"
     ).setOrigin(0.5, 0);
-    //add rocket to p2
-    /*
-    this.p2Rocket = new Rocket(
-      this,
-      game.config.width / 2,
-      game.config.height - borderUISize - borderPadding,
-      "rocket"
-    ).setOrigin(0.5, 0);
-    this.p2Rocket.setVisible(false); // Hide p2 rocket initially
-    */
+
 
     //initialize score
     this.p1Score = 0;
@@ -210,6 +193,9 @@ class Play extends Phaser.Scene {
         scoreConfig
       )
       .setOrigin(1, 0);
+
+      //array to store different explosion sounds
+      this.rngSounds = ['sfx-explosion01','sfx-explosion02','sfx-explosion03','sfx-explosion04','sfx-explosion05']
 
     // 60-second play clock
     scoreConfig.fixedWidth = 0;
@@ -349,6 +335,11 @@ class Play extends Phaser.Scene {
     }
   }
 
+  PlayRngSounds(){
+    const randomSound = Phaser.Utils.Array.GetRandom(this.rngSounds);
+    this.sound.play(randomSound);
+  }
+
   shipExplode(ship) {
     // temporarily hide ship
     ship.alpha = 0;
@@ -369,7 +360,7 @@ class Play extends Phaser.Scene {
         this.p2Score += ship.points;
         this.scoreRight.text = this.p2Score;
       }
-      this.sound.play("sfx-explosion"); //to let player know time was added
+      this.PlayRngSounds(); //to let player know time was added
     });
   }
 
